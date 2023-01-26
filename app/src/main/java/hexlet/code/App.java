@@ -13,26 +13,23 @@ public class App implements Callable<Integer> {
 
     private final Integer errorCase = 111;
 
-    @Parameters(index = "0", description = "path to the first file")
-    private String firstFilePath;
+    @Parameters(index = "0", description = "path to first file")
+    private String filepath1;
 
-    @Parameters(index = "1", description = "path to the second file")
-    private String secondFilePath;
+    @Parameters(index = "1", description = "path to second file")
+    private String filepath2;
 
-    @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
+    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
+    private String format = "stylish";
+    @Option(names = {"-h", "--help"}, description = "Show this help message and exit.")
     private boolean usageHelpRequested;
-
-    @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
+    @Option(names = {"-V", "--version"}, description = "Print version information and exit.")
     private boolean versionInfoRequested;
-
-    @Option(names = {"-f", "--format"}, defaultValue = "stylish",
-            description = "output format [default: stylish]")
-    private String format;
 
     @Override
     public final Integer call() throws Exception {
         try {
-            System.out.println(Differ.generate(firstFilePath, secondFilePath, format));
+            System.out.println(Differ.generate(filepath1, filepath2, format));
             return 0;
         } catch (Exception e) {
             System.out.println(e.getMessage());
